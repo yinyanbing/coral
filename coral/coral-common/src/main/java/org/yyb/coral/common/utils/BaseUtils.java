@@ -1,6 +1,6 @@
 package org.yyb.coral.common.utils;
 
-import org.yyb.coral.common.Constants;
+import org.yyb.coral.Constants;
 
 public class BaseUtils {
 	/**

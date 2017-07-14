@@ -21,7 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.ConstructorUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yyb.coral.common.Constants;
+import org.yyb.coral.Constants;
 import org.yyb.coral.common.utils.BaseUtils;
 
 /**
