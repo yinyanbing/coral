@@ -120,6 +120,11 @@ public class ExtensionLoader<T> {
 		return obj;
 	}
 
+	/**
+	 * 增加某接口的实现的class
+	 * 
+	 * @param clz
+	 */
 	public void addExtensionClass(Class<T> clz) {
 		if (clz == null) {
 			return;
