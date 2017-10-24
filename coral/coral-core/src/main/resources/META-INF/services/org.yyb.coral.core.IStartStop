@@ -1,0 +1,3 @@
+org.yyb.coral.core.provider.IntegrateStartStopImpl
+org.yyb.coral.core.eventbus.EventBusStartStopImpl
+org.yyb.coral.core.businessinit.BusinessInitStartStopImpl

@@ -1,0 +1,2 @@
+org.yyb.coral.core.redis.config.RedisConfigModelProviderImpl
+org.yyb.coral.core.thread.config.ThreadPoolConfigProviderImpl
