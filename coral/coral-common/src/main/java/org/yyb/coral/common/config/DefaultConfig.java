@@ -27,6 +27,7 @@ public class DefaultConfig extends AbstractConfig {
 	private volatile boolean hasLoad = false;
 
 	private volatile boolean loadSuccess = false;
+	private static final String FILE_START = "/";
 
 	@Override
 	public String getConfigValue(String key) {
@@ -75,10 +76,11 @@ public class DefaultConfig extends AbstractConfig {
 		try {
 			property = new Properties();
 			in = getResourceAsStream(location);
-			if (in != null)
+			if (in != null) {
 				property.load(in);
-			else
+			} else {
 				throw new FileNotFoundException("File[" + location + "]is not found!");
+			}
 		} catch (IOException e) {
 		} finally {
 			if (in != null) {
@@ -92,7 +94,7 @@ public class DefaultConfig extends AbstractConfig {
 	}
 
 	private InputStream getResourceAsStream(String name) {
-		if (name.startsWith("/")) {
+		if (name.startsWith(FILE_START)) {
 			name = name.substring(1);
 		}
 		ClassLoader ccl = Thread.currentThread().getContextClassLoader();

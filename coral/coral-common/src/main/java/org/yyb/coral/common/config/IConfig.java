@@ -3,6 +3,13 @@ package org.yyb.coral.common.config;
 import org.yyb.coral.common.extension.Spi;
 import org.yyb.coral.common.extension.Scope;
 
+/**
+ * 
+ * 
+ * @author: yybg
+ * @date: 2017年10月19日 上午10:24:01
+ *
+ */
 @Spi(scope = Scope.SINGLETON)
 public interface IConfig {
 
@@ -54,6 +61,8 @@ public interface IConfig {
 	 * @param module
 	 * @param group
 	 * @param key
+	 * @param valueForNull
+	 *            配置返回值为空时返回默认值
 	 * @return
 	 */
 	public String getConfigValue(String module, String group, String key, String valueForNull);

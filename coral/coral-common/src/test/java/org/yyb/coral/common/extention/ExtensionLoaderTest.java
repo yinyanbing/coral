@@ -59,11 +59,23 @@ public class ExtensionLoaderTest {
 		Assert.assertNull(ExtensionLoader.getExtensionLoader(SpiWithoutImpl.class).getExtension("default"));
 	}
 
-	// not spi
+	/**
+	 *  not spi
+	 * 
+	 * @author: yybg
+	 * @date: 2017年10月19日 上午10:23:44 
+	 *
+	 */
 	public interface NotSpiInterface {
 	}
 
-	// not impl
+	/**
+	 *  not impl
+	 * 
+	 * @author: yybg
+	 * @date: 2017年10月19日 上午10:23:48 
+	 *
+	 */
 	@Spi
 	public interface SpiWithoutImpl {
 	}

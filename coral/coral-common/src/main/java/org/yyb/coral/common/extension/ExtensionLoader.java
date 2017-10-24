@@ -51,7 +51,6 @@ public class ExtensionLoader<T> {
 
 	private volatile boolean init = false;
 
-	// spi path prefix
 	private static final String PREFIX = "META-INF/services/";
 
 	private ClassLoader classLoader;
@@ -84,7 +83,8 @@ public class ExtensionLoader<T> {
 		}
 		try {
 			Spi spi = type.getAnnotation(Spi.class);
-			if (spi.scope() == Scope.SINGLETON) {// 单例
+			// 单例
+			if (spi.scope() == Scope.SINGLETON) {
 				return getSingletonInstance(name);
 			} else {
 				Class<T> clz = extensionClasses.get(name);
@@ -146,7 +146,7 @@ public class ExtensionLoader<T> {
 			return;
 		}
 		extensionClasses = loadExtensionClasses(PREFIX);
-		singletonInstances = new ConcurrentHashMap<String, T>();
+		singletonInstances = new ConcurrentHashMap<String, T>(8);
 		init = true;
 	}
 
@@ -295,7 +295,7 @@ public class ExtensionLoader<T> {
 			}
 
 			if (urls == null || !urls.hasMoreElements()) {
-				return new ConcurrentHashMap<String, Class<T>>();
+				return new ConcurrentHashMap<String, Class<T>>(8);
 			}
 
 			while (urls.hasMoreElements()) {
@@ -312,7 +312,7 @@ public class ExtensionLoader<T> {
 
 	@SuppressWarnings("unchecked")
 	private ConcurrentMap<String, Class<T>> loadClass(List<String> classNames) {
-		ConcurrentMap<String, Class<T>> map = new ConcurrentHashMap<String, Class<T>>();
+		ConcurrentMap<String, Class<T>> map = new ConcurrentHashMap<String, Class<T>>(8);
 
 		for (String className : classNames) {
 			try {
@@ -330,6 +330,7 @@ public class ExtensionLoader<T> {
 
 				String spiName = getSpiName(clz);
 				if (map.containsKey(spiName)) {
+					// 同一个spiName名字的优先级处理 TODO
 					failThrows(clz, ":Error spiName already exist " + spiName);
 				} else {
 					map.put(spiName, clz);

@@ -24,5 +24,5 @@ public @interface Activation {
 	String[] key() default "";
 
 	/** 是否支持重试的时候也调用 */
-	boolean retry() default true;
+	// boolean retry() default true;
 }
