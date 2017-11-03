@@ -1,6 +1,7 @@
 package org.yyb.coral.core;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -21,17 +22,30 @@ import org.junit.BeforeClass;
  *
  */
 public class CommonTest {
+	private static boolean hasStarted = false;
+	private static AtomicInteger atomicInteger = new AtomicInteger(0);
+
+	public CommonTest() {
+		super();
+		atomicInteger.incrementAndGet();
+	}
 
 	@BeforeClass
 	public static void before() {
-		CoralConfig config = new CoralConfig();
-		CoralApplication.start(config);
+		if (!hasStarted) {
+			hasStarted = true;
+			CoralConfig config = new CoralConfig();
+			CoralApplication.start(config);
+		}
 	}
 
 	@AfterClass
 	public static void after() throws InterruptedException {
-		CoralApplication.stop();
-		TimeUnit.SECONDS.sleep(5);
+		if (atomicInteger.intValue() == 1) {
+			CoralApplication.stop();
+			TimeUnit.SECONDS.sleep(5);
+		}
+		atomicInteger.decrementAndGet();
 	}
 
 }

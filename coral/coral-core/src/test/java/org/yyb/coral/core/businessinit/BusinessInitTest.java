@@ -1,10 +1,9 @@
 package org.yyb.coral.core.businessinit;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
-import org.yyb.coral.core.CoralApplication;
-import org.yyb.coral.core.CoralConfig;
+import org.yyb.coral.core.CommonTest;
 
 /**
  * 业务初始化测试
@@ -13,20 +12,9 @@ import org.yyb.coral.core.CoralConfig;
  * @date: 2017年10月20日 下午1:28:38
  *
  */
-public class BusinessInitTest {
-
-	@BeforeClass
-	public static void before() {
-		Binit01 binitOne = new Binit01();
-		Binit02 binitTwo = new Binit02();
-		CoralConfig config = new CoralConfig();
-		CoralApplication.start(config);
-	}
-
-	@AfterClass
-	public static void after() throws InterruptedException {
-		CoralApplication.stop();
-	}
+public class BusinessInitTest extends CommonTest {
+	private Binit01 binitOne = new Binit01();
+	private Binit02 binitTwo = new Binit02();
 
 	@Test
 	public void testBusinessInit() {
@@ -46,11 +34,13 @@ public class BusinessInitTest {
 
 		@Override
 		protected void startInternal() {
+			assertEquals(true, true);
 			System.out.println("Binit01   start***************************");
 		}
 
 		@Override
 		protected void stopInternal() {
+			assertEquals(true, true);
 			System.out.println("Binit01   stop***************************");
 		}
 

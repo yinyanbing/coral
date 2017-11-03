@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yyb.coral.Constants;
 import org.yyb.coral.common.exception.CoralRuntimeException;
 import org.yyb.coral.common.extension.ExtensionLoader;
 import org.yyb.coral.common.utils.BaseUtils;
@@ -71,7 +70,7 @@ public class CoralApplication {
 					startStop.stop();
 				} catch (Exception e) {
 					logger.error(BaseUtils.getLogText(
-							"OrderedInitManager init is error! className=【%s】,name=【%s】,order=【%s】,stopInfo=【s%】**************************",
+							"OrderedInitManager init is error! className=【%s】,name=【%s】**************************",
 							startStop.getClass().getName(), startStop.getName(), startStop.getOrder(),
 							startStop.getStopInfo()), e);
 				}

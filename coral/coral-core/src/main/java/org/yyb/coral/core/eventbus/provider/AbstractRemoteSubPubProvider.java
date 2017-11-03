@@ -1,13 +1,13 @@
 package org.yyb.coral.core.eventbus.provider;
 
-import org.yyb.coral.Constants;
-import org.yyb.coral.common.utils.BaseUtils;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import org.yyb.coral.core.ICoralName;
 import org.yyb.coral.core.eventbus.IApplicationEvent;
-import org.yyb.coral.core.thread.IThreadPoolProvider;
-import org.yyb.coral.core.thread.ThreadPoolProviderFactory;
-
-import com.google.common.util.concurrent.ListeningExecutorService;
+import org.yyb.coral.core.thread.CoralThreadFactory;
 
 /**
  * 远程订阅发布实现抽象类
@@ -34,8 +34,10 @@ public abstract class AbstractRemoteSubPubProvider implements IRemoteSubPubProvi
 
 	@Override
 	public void start() {
-		Thread thread = new Thread(getSubscriberWorker(), Constants.LOG_PREFIX + name + "-Remote subscribe thread");
-		thread.start();
+		CoralThreadFactory coralThreadFactory = new CoralThreadFactory(name + "-remote subscribe");
+		ExecutorService singleThreadPool = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
+				new LinkedBlockingQueue<Runnable>(1), coralThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+		singleThreadPool.submit(getSubscriberWorker());
 		startInternal();
 	}
 

@@ -6,6 +6,9 @@ import org.yyb.coral.Constants;
 import org.yyb.coral.common.utils.BaseUtils;
 import org.yyb.coral.common.utils.DataSerializeUtils;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 /**
  * 应用事件
  * 
@@ -167,9 +170,9 @@ public abstract class AbstractApplicationEvent implements IApplicationEvent, Ser
 
 	@Override
 	public String toString() {
-		return "CoralApplicationEvent [applicationId=" + applicationId + ", requestId=" + requestId
-				+ ", eventIdentification=" + eventIdentification + ", eventType=" + eventType + ", eventData="
-				+ eventData + ", toApplicationId=" + toApplicationId + "]";
+		return MoreObjects.toStringHelper(this.getClass()).add("applicationId", applicationId)
+				.add("requestId", requestId).add("eventIdentification", eventIdentification).add("eventType", eventType)
+				.add("eventData", eventData).add("toApplicationId", toApplicationId).omitNullValues().toString();
 	}
 
 }

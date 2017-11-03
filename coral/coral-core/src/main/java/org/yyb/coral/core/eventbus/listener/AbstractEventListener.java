@@ -59,26 +59,6 @@ public abstract class AbstractEventListener<E extends IApplicationEvent> impleme
 	 * @param hasError
 	 */
 	private void reportRemoteEventStatus(final IApplicationEvent event, final boolean hasError) {
-		// if
-		// (!SpAppIdentificationEventEnum.REMOTE.getId().equals(event.getEventIdentification()))
-		// {
-		// return;
-		// }
-		// SpRedisUtils.runWithJedis(new RedisInvokeVoidHander<Void>() {
-		//
-		// @Override
-		// public void invokeWithJedis(ProxyJedis proxyJedis) {
-		// // 当前应用接受事件成功
-		// String key = SpConstants.SP_PLATFORM + ":" + event.getRequestId() +
-		// ":"
-		// + SpConstants.SP_PLATFORM_EVENT_EXECUTE;
-		// SpRemoteEventStatus eventStatus = new
-		// SpRemoteEventStatus(event.getEventType(), event.getRequestId(),
-		// hasError ? 2 : 1);
-		// proxyJedis.sadd(key, SpJSONOperUtils.toJSONString(eventStatus));
-		// proxyJedis.expire(key, EVENT_EXPIRE_SECONDDS);
-		// }
-		// });
 	}
 
 	/**

@@ -47,6 +47,7 @@ public class GuavaLocalSubPubProviderImpl extends AbstractLocalSubPubProvider {
 
 	@Override
 	protected void startInternal() {
+		// 本地事件发布异步处理
 		IThreadPoolProvider threadPoolProvider = ThreadPoolProviderFactory.getDefaultThreadPoolProvider();
 		ListeningExecutorService executorService = threadPoolProvider.getExecutorServiceDefault();
 		guavaEventbus = new AsyncEventBus(GUAVA_EVENTBUSS_NAME, executorService);

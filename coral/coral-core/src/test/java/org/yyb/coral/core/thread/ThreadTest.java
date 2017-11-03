@@ -15,8 +15,6 @@ import org.yyb.coral.core.CommonTest;
 import org.yyb.coral.core.CoralApplication;
 import org.yyb.coral.core.CoralConfig;
 
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.RateLimiter;
@@ -28,19 +26,7 @@ import com.google.common.util.concurrent.RateLimiter;
  * @date: 2017年10月21日 下午9:18:37
  *
  */
-public class ThreadTest {
-
-	@BeforeClass
-	public static void before() {
-		CoralConfig config = new CoralConfig();
-		CoralApplication.start(config);
-	}
-
-	@AfterClass
-	public static void after() throws InterruptedException {
-		CoralApplication.stop();
-		TimeUnit.SECONDS.sleep(5);
-	}
+public class ThreadTest extends CommonTest {
 
 	@Test
 	public void testThreadpoolDefault() {
@@ -69,8 +55,10 @@ public class ThreadTest {
 			@Override
 			public void run() {
 				try {
-					RateLimiter limiter = RateLimiter.create(4.0); // 每秒不超过4个任务被提交
-					limiter.acquire(); // 请求RateLimiter, 超过permits会被阻塞
+					// // 每秒不超过4个任务被提交
+					RateLimiter limiter = RateLimiter.create(4.0);
+					// 请求RateLimiter, 超过permits会被阻塞
+					limiter.acquire();
 					// 异步获取
 					String runResult = result.get();
 					assertEquals("over", runResult);

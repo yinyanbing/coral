@@ -87,6 +87,7 @@ public class RedissonProviderDefaultImpl extends AbstractIntegrateClientProvider
 		if (StringUtils.isBlank(clusterNodes)) {
 			throw new CoralRuntimeException("Redisson client clusterNodes can not null!");
 		}
+		// HostAndPort.fromString(hostPortString);
 		// "127.0.0.1:7000", "127.0.0.1:7001"
 		String[] nodes = clusterNodes.split(",");
 		config.useClusterServers().setScanInterval(2000).addNodeAddress(nodes);

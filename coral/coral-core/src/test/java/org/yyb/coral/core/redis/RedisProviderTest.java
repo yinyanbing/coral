@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
 import org.yyb.coral.Constants;
+import org.yyb.coral.core.CommonTest;
 import org.yyb.coral.core.CoralApplication;
 import org.yyb.coral.core.CoralConfig;
 import org.yyb.coral.core.redis.hander.IRedisLockHander;
@@ -26,24 +27,9 @@ import redis.clients.jedis.Jedis;
  * @date: 2017年10月24日 上午10:07:51
  *
  */
-public class RedisProviderTest {
-	// private static RedissonClient redisson = null;
-
-	@BeforeClass
-	public static void before() {
-		CoralConfig config = new CoralConfig();
-		CoralApplication.start(config);
-	}
-
-	@AfterClass
-	public static void after() throws InterruptedException {
-		CoralApplication.stop();
-		TimeUnit.SECONDS.sleep(5);
-	}
-
+public class RedisProviderTest extends CommonTest {
 	@Test
 	public void testRedisProviderDefault() {
-
 		IJedisProvider iJedisProvider = RedisProviderFactory.getDefaultJedisProvider();
 		Jedis jedis = iJedisProvider.getJedisClientDefault();
 		Assert.assertNotNull(jedis);

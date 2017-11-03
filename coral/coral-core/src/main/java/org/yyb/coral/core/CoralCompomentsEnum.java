@@ -17,7 +17,11 @@ public enum CoralCompomentsEnum {
 	/**
 	 * 事件总线远程组件
 	 */
-	EVENTBUS_REMOTE("eventbus_remote", "redis", "事件总线远程组件"), EVENTBUS_LOCAL("eventbus_local", "guava", "事件总线本地组件");
+	EVENTBUS_REMOTE("eventbus_remote", "redis", "事件总线远程组件"),
+	/**
+	 * 事件总线本地组件
+	 */
+	EVENTBUS_LOCAL("eventbus_local", "guava", "事件总线本地组件");
 	/**
 	 * 组件名
 	 */

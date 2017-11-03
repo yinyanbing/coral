@@ -188,7 +188,7 @@ public class ExtensionLoader<T> {
 			return Collections.emptyList();
 		}
 
-		// 如果只有一个实现，直接返回
+		// 如果只有一个实现，直接返回z
 		List<T> exts = new ArrayList<T>(extensionClasses.size());
 
 		// 多个实现，按优先级排序返回
