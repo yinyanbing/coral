@@ -24,57 +24,56 @@ import com.google.common.util.concurrent.RateLimiter;
  * 
  * @author: yybg
  * @date: 2017年10月21日 下午9:18:37
- *
  */
 public class ThreadTest extends CommonTest {
 
-	@Test
-	public void testThreadpoolDefault() {
-		IThreadPoolProvider threadPoolProvider = ThreadPoolProviderFactory.getDefaultThreadPoolProvider();
-		ListeningExecutorService listeningExecutorService = threadPoolProvider.getExecutorServiceDefault();
-		assertNotNull(listeningExecutorService);
-	}
+    @Test
+    public void testThreadpoolDefault() {
+        IThreadPoolProvider threadPoolProvider = ThreadPoolProviderFactory.getDefaultThreadPoolProvider();
+        ListeningExecutorService listeningExecutorService = threadPoolProvider.getExecutorServiceDefault();
+        assertNotNull(listeningExecutorService);
+    }
 
-	@Test
-	public void testThreadpoolRunResult() throws InterruptedException {
-		IThreadPoolProvider threadPoolProvider = ThreadPoolProviderFactory.getDefaultThreadPoolProvider();
-		ListeningExecutorService listeningExecutorService = threadPoolProvider.getExecutorServiceDefault();
-		assertNotNull(listeningExecutorService);
-		ListenableFuture<String> result = listeningExecutorService.submit(new Callable<String>() {
+    @Test
+    public void testThreadpoolRunResult() throws InterruptedException {
+        IThreadPoolProvider threadPoolProvider = ThreadPoolProviderFactory.getDefaultThreadPoolProvider();
+        ListeningExecutorService listeningExecutorService = threadPoolProvider.getExecutorServiceDefault();
+        assertNotNull(listeningExecutorService);
+        ListenableFuture<String> result = listeningExecutorService.submit(new Callable<String>() {
 
-			@Override
-			public String call() throws Exception {
-				TimeUnit.SECONDS.sleep(1);
-				System.out.println("over!!!!111111111111");
-				return "over";
-			}
-		});
+            @Override
+            public String call() throws Exception {
+                TimeUnit.SECONDS.sleep(1);
+                System.out.println("over!!!!111111111111");
+                return "over";
+            }
+        });
 
-		result.addListener(new Runnable() {
+        result.addListener(new Runnable() {
 
-			@Override
-			public void run() {
-				try {
-					// // 每秒不超过4个任务被提交
-					RateLimiter limiter = RateLimiter.create(4.0);
-					// 请求RateLimiter, 超过permits会被阻塞
-					limiter.acquire();
-					// 异步获取
-					String runResult = result.get();
-					assertEquals("over", runResult);
-					System.out.println("over!!!!2222222222");
-				} catch (InterruptedException e) {
-					fail(e.getMessage());
-				} catch (ExecutionException e) {
-					fail(e.getMessage());
-				}
+            @Override
+            public void run() {
+                try {
+                    // // 每秒不超过4个任务被提交
+                    RateLimiter limiter = RateLimiter.create(4.0);
+                    // 请求RateLimiter, 超过permits会被阻塞
+                    limiter.acquire();
+                    // 异步获取
+                    String runResult = result.get();
+                    assertEquals("over", runResult);
+                    System.out.println("over!!!!2222222222");
+                } catch (InterruptedException e) {
+                    fail(e.getMessage());
+                } catch (ExecutionException e) {
+                    fail(e.getMessage());
+                }
 
-			}
-		}, listeningExecutorService);
+            }
+        }, listeningExecutorService);
 
-		TimeUnit.SECONDS.sleep(5);
-		System.out.println("over!!!!333333333333");
+        TimeUnit.SECONDS.sleep(5);
+        System.out.println("over!!!!333333333333");
 
-	}
+    }
 
 }

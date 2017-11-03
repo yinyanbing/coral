@@ -16,36 +16,35 @@ import org.junit.BeforeClass;
  * @Ignore：忽略的测试方法
  * @BeforeClass：针对所有测试，只执行一次，且必须为static void
  * @AfterClass：针对所有测试，只执行一次，且必须为static void
- * 
  * @author: yybg
  * @date: 2017年10月20日 上午11:09:30
- *
  */
 public class CommonTest {
-	private static boolean hasStarted = false;
-	private static AtomicInteger atomicInteger = new AtomicInteger(0);
+    private static boolean hasStarted = false;
 
-	public CommonTest() {
-		super();
-		atomicInteger.incrementAndGet();
-	}
+    private static AtomicInteger atomicInteger = new AtomicInteger(0);
 
-	@BeforeClass
-	public static void before() {
-		if (!hasStarted) {
-			hasStarted = true;
-			CoralConfig config = new CoralConfig();
-			CoralApplication.start(config);
-		}
-	}
+    public CommonTest() {
+        super();
+        atomicInteger.incrementAndGet();
+    }
 
-	@AfterClass
-	public static void after() throws InterruptedException {
-		if (atomicInteger.intValue() == 1) {
-			CoralApplication.stop();
-			TimeUnit.SECONDS.sleep(5);
-		}
-		atomicInteger.decrementAndGet();
-	}
+    @BeforeClass
+    public static void before() {
+        if (!hasStarted) {
+            hasStarted = true;
+            CoralConfig config = new CoralConfig();
+            CoralApplication.start(config);
+        }
+    }
+
+    @AfterClass
+    public static void after() throws InterruptedException {
+        if (atomicInteger.intValue() == 1) {
+            CoralApplication.stop();
+            TimeUnit.SECONDS.sleep(5);
+        }
+        atomicInteger.decrementAndGet();
+    }
 
 }
