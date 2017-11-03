@@ -10,41 +10,40 @@ import org.yyb.coral.core.IStartStop;
  * 
  * @author: yybg
  * @date: 2017年10月17日 下午3:23:32
- *
  */
 @SpiMeta(name = "businessInit")
 @Activation(key = "businessInit")
 public class BusinessInitStartStopImpl implements IStartStop {
-	private static final String BUSINESSINIT_NAME = "businessInit";
+    private static final String BUSINESSINIT_NAME = "businessInit";
 
-	@Override
-	public String getStartInfo() {
-		return BUSINESSINIT_NAME;
-	}
+    @Override
+    public String getStartInfo() {
+        return BUSINESSINIT_NAME;
+    }
 
-	@Override
-	public String getStopInfo() {
-		return BUSINESSINIT_NAME;
-	}
+    @Override
+    public String getStopInfo() {
+        return BUSINESSINIT_NAME;
+    }
 
-	@Override
-	public String getName() {
-		return BUSINESSINIT_NAME;
-	}
+    @Override
+    public String getName() {
+        return BUSINESSINIT_NAME;
+    }
 
-	@Override
-	public void start() {
-		BusinessInitManager.instance().initRegisteredBeans();
-	}
+    @Override
+    public void start() {
+        BusinessInitManager.instance().initRegisteredBeans();
+    }
 
-	@Override
-	public void stop() {
-		BusinessInitManager.instance().destroyRegisteredBeans();
-	}
+    @Override
+    public void stop() {
+        BusinessInitManager.instance().destroyRegisteredBeans();
+    }
 
-	@Override
-	public int getOrder() {
-		return CoralCoreConstans.ORDERED_BUSINESS_INIT;
-	}
+    @Override
+    public int getOrder() {
+        return CoralCoreConstans.ORDERED_BUSINESS_INIT;
+    }
 
 }

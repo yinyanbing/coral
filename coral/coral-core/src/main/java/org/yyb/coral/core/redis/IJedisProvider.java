@@ -13,20 +13,20 @@ import redis.clients.jedis.Jedis;
  */
 @Spi(scope = Scope.SINGLETON)
 public interface IJedisProvider {
-	/**
-	 * 获取redis默认default配置组的客户端jedis
-	 * 
-	 * @return
-	 */
-	public Jedis getJedisClientDefault();
+    /**
+     * 获取redis默认default配置组的客户端jedis
+     * 
+     * @return
+     */
+    public Jedis getJedisClientDefault();
 
-	/**
-	 * 获取redis某配置组的客户端jedis
-	 * 
-	 * @param configGroup
-	 *            reids在配置文件中可配置多组，用于不同的业务场景使用
-	 * @return
-	 */
-	public Jedis getJedisClient(String configGroup);
+    /**
+     * 获取redis某配置组的客户端jedis
+     * 
+     * @param configGroup
+     *            reids在配置文件中可配置多组，用于不同的业务场景使用
+     * @return
+     */
+    public Jedis getJedisClient(String configGroup);
 
 }

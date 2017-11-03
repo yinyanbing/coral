@@ -8,22 +8,21 @@ package org.yyb.coral.core.provider;
  * 
  * @author: yybg
  * @date: 2017年10月24日 上午10:03:26
- *
  */
 public interface IIntegrateClientProvider<T> {
-	/**
-	 * 获取默认的集成客户端
-	 * 
-	 * @return
-	 */
-	public T getClientDefault();
+    /**
+     * 获取默认的集成客户端
+     * 
+     * @return
+     */
+    public T getClientDefault();
 
-	/**
-	 * 获取某配置组的集成客户端
-	 * 
-	 * @param configGroup
-	 * @return
-	 */
-	public T getClient(String configGroup);
+    /**
+     * 获取某配置组的集成客户端
+     * 
+     * @param configGroup
+     * @return
+     */
+    public T getClient(String configGroup);
 
 }

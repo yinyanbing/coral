@@ -5,41 +5,40 @@ package org.yyb.coral.core.redis.hander;
  * 
  * @author: yybg
  * @date: 2017年10月10日 下午3:45:53
- *
  */
 public enum RedisInvokeResultEnum {
-	/**
-	 * success
-	 */
-	SUCCESS(1, "success"),
-	/**
-	 * error
-	 */
-	ERROR(2, "error"),
-	/**
-	 * noredisprovider
-	 */
-	NOREDISPROVIDER(3, "没有redisprovider"),
-	/**
-	 * noredisclient
-	 */
-	NOREDISCLIENT(4, "没有redisclient");
+    /**
+     * success
+     */
+    SUCCESS(1, "success"),
+    /**
+     * error
+     */
+    ERROR(2, "error"),
+    /**
+     * noredisprovider
+     */
+    NOREDISPROVIDER(3, "没有redisprovider"),
+    /**
+     * noredisclient
+     */
+    NOREDISCLIENT(4, "没有redisclient");
 
-	private Integer code;
+    private Integer code;
 
-	private String title;
+    private String title;
 
-	RedisInvokeResultEnum(int code, String title) {
-		this.code = code;
-		this.title = title;
-	}
+    RedisInvokeResultEnum(int code, String title) {
+        this.code = code;
+        this.title = title;
+    }
 
-	public int getCode() {
-		return code;
-	}
+    public int getCode() {
+        return code;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
 }

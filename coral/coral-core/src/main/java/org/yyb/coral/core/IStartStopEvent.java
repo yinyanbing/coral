@@ -7,13 +7,13 @@ package org.yyb.coral.core;
  * @date: 2017年9月26日 下午2:47:55
  */
 public interface IStartStopEvent {
-	/**
-	 * 启动初始化
-	 */
-	public void start();
+    /**
+     * 启动初始化
+     */
+    public void start();
 
-	/**
-	 * 停止销毁
-	 */
-	public void stop();
+    /**
+     * 停止销毁
+     */
+    public void stop();
 }

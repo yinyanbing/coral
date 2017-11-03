@@ -24,105 +24,106 @@ import com.google.common.util.concurrent.MoreExecutors;
  * 
  * @author: yybg
  * @date: 2017年10月20日 下午4:50:49
- *
  */
 @SpiMeta(name = "default")
-public class ThreadPoolProviderDefaultImpl extends AbstractIntegrateClientProvider<ListeningExecutorService>
-		implements IThreadPoolProvider {
+public class ThreadPoolProviderDefaultImpl extends AbstractIntegrateClientProvider<ListeningExecutorService> implements IThreadPoolProvider {
 
-	public ThreadPoolProviderDefaultImpl() {
-		super(Constants.CORAL_THREADPOOL, "coral");
-	}
+    public ThreadPoolProviderDefaultImpl() {
+        super(Constants.CORAL_THREADPOOL, "coral");
+    }
 
-	@Override
-	protected Object doMakeClientPoolInternal(IConfigModel configModel) {
-		if (configModel instanceof ThreadPoolConfigModel) {
-			ThreadPoolConfigModel threadpoolConfigModel = (ThreadPoolConfigModel) configModel;
+    @Override
+    protected Object doMakeClientPoolInternal(IConfigModel configModel) {
+        if (configModel instanceof ThreadPoolConfigModel) {
+            ThreadPoolConfigModel threadpoolConfigModel = (ThreadPoolConfigModel) configModel;
 
-			ThreadInitTypeEnum initTypeEnum = ThreadInitTypeEnum.getInitType(threadpoolConfigModel.getThreadPoolType());
-			ExecutorService executorService = null;
-			ScheduledExecutorService scheduledExecutorService = null;
-			switch (initTypeEnum) {
-			case NORMAL:
-				executorService = createNormalThreadPool(configModel.getId(), threadpoolConfigModel.getCorePoolSize(),
-						threadpoolConfigModel.getMaximumPoolSize(), threadpoolConfigModel.getKeepAliveTime(),
-						threadpoolConfigModel.getWorkQueueSize());
-				break;
-			case SCHEDULED:
-				scheduledExecutorService = createScheduledThreadPool(configModel.getId(),
-						threadpoolConfigModel.getCorePoolSize());
-				break;
-			default:
-				executorService = createNormalThreadPool(configModel.getId(), threadpoolConfigModel.getCorePoolSize(),
-						threadpoolConfigModel.getMaximumPoolSize(), threadpoolConfigModel.getKeepAliveTime(),
-						threadpoolConfigModel.getWorkQueueSize());
-				break;
-			}
-			if (executorService != null) {
-				ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(executorService);
-				return listeningExecutorService;
-			}
-			if (scheduledExecutorService != null) {
-				ListeningExecutorService listeningExecutorService = MoreExecutors
-						.listeningDecorator(scheduledExecutorService);
-				return listeningExecutorService;
-			}
-		}
-		return null;
-	}
+            ThreadInitTypeEnum initTypeEnum = ThreadInitTypeEnum.getInitType(threadpoolConfigModel.getThreadPoolType());
+            ExecutorService executorService = null;
+            ScheduledExecutorService scheduledExecutorService = null;
+            switch (initTypeEnum) {
+            case NORMAL:
+                executorService = createNormalThreadPool(
+                        configModel.getId(),
+                        threadpoolConfigModel.getCorePoolSize(),
+                        threadpoolConfigModel.getMaximumPoolSize(),
+                        threadpoolConfigModel.getKeepAliveTime(),
+                        threadpoolConfigModel.getWorkQueueSize());
+                break;
+            case SCHEDULED:
+                scheduledExecutorService = createScheduledThreadPool(configModel.getId(), threadpoolConfigModel.getCorePoolSize());
+                break;
+            default:
+                executorService = createNormalThreadPool(
+                        configModel.getId(),
+                        threadpoolConfigModel.getCorePoolSize(),
+                        threadpoolConfigModel.getMaximumPoolSize(),
+                        threadpoolConfigModel.getKeepAliveTime(),
+                        threadpoolConfigModel.getWorkQueueSize());
+                break;
+            }
+            if (executorService != null) {
+                ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(executorService);
+                return listeningExecutorService;
+            }
+            if (scheduledExecutorService != null) {
+                ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(scheduledExecutorService);
+                return listeningExecutorService;
+            }
+        }
+        return null;
+    }
 
-	@Override
-	protected ListeningExecutorService doGetClientInternal(Object clientPool) {
-		if (clientPool != null) {
-			return (ListeningExecutorService) clientPool;
-		}
-		return null;
-	}
+    @Override
+    protected ListeningExecutorService doGetClientInternal(Object clientPool) {
+        if (clientPool != null) {
+            return (ListeningExecutorService) clientPool;
+        }
+        return null;
+    }
 
-	@Override
-	public ListeningExecutorService getExecutorServiceDefault() {
-		return getClientDefault();
-	}
+    @Override
+    public ListeningExecutorService getExecutorServiceDefault() {
+        return getClientDefault();
+    }
 
-	@Override
-	public ListeningExecutorService getExecutorService(String configGroup) {
-		return getClient(configGroup);
-	}
+    @Override
+    public ListeningExecutorService getExecutorService(String configGroup) {
+        return getClient(configGroup);
+    }
 
-	private ExecutorService createNormalThreadPool(String name, int corePoolSize, int maximumPoolSize,
-			long keepAliveTime, int workQueueSize) {
-		if (maximumPoolSize <= 0) {
-			maximumPoolSize = Integer.MAX_VALUE;
-		}
-		// 线程池执行队列
-		BlockingQueue<Runnable> workQueue = null;
-		if (workQueueSize <= 0) {
-			workQueue = new LinkedBlockingQueue<Runnable>();
-		} else {
-			workQueue = new LinkedBlockingQueue<Runnable>(workQueueSize);
-		}
-		CoralThreadFactory coralThreadFactory = new CoralThreadFactory(name);
-		RejectedExecutionHandler handler = new ThreadPoolExecutor.CallerRunsPolicy();
-		ExecutorService executorService = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime,
-				TimeUnit.MILLISECONDS, workQueue, coralThreadFactory, handler);
-		return executorService;
-	}
+    private ExecutorService createNormalThreadPool(String name, int corePoolSize, int maximumPoolSize, long keepAliveTime, int workQueueSize) {
+        if (maximumPoolSize <= 0) {
+            maximumPoolSize = Integer.MAX_VALUE;
+        }
+        // 线程池执行队列
+        BlockingQueue<Runnable> workQueue = null;
+        if (workQueueSize <= 0) {
+            workQueue = new LinkedBlockingQueue<Runnable>();
+        } else {
+            workQueue = new LinkedBlockingQueue<Runnable>(workQueueSize);
+        }
+        CoralThreadFactory coralThreadFactory = new CoralThreadFactory(name);
+        RejectedExecutionHandler handler = new ThreadPoolExecutor.CallerRunsPolicy();
+        ExecutorService executorService = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.MILLISECONDS, workQueue,
+                coralThreadFactory, handler);
+        return executorService;
+    }
 
-	private ScheduledExecutorService createScheduledThreadPool(String name, int corePoolSize) {
-		CoralThreadFactory coralThreadFactory = new CoralThreadFactory(name);
-		ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(corePoolSize, coralThreadFactory);
-		return executorService;
-	}
+    private ScheduledExecutorService createScheduledThreadPool(String name, int corePoolSize) {
+        CoralThreadFactory coralThreadFactory = new CoralThreadFactory(name);
+        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(corePoolSize, coralThreadFactory);
+        return executorService;
+    }
 
-	@Override
-	public int getOrder() {
-		return IntegrateOrderEnum.THREADPOOL.getOrder();
-	}
+    @Override
+    public int getOrder() {
+        return IntegrateOrderEnum.THREADPOOL.getOrder();
+    }
 
-	@Override
-	protected void doDestroyClientPoolInternal(Object clientPool) {
-		if (clientPool != null) {
-			((ListeningExecutorService) clientPool).shutdown();
-		}
-	}
+    @Override
+    protected void doDestroyClientPoolInternal(Object clientPool) {
+        if (clientPool != null) {
+            ((ListeningExecutorService) clientPool).shutdown();
+        }
+    }
 }

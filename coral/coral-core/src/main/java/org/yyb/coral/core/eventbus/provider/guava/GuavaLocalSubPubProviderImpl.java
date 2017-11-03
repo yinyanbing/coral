@@ -14,47 +14,47 @@ import com.google.common.util.concurrent.ListeningExecutorService;
  * 
  * @author: yybg
  * @date: 2017年10月17日 下午5:30:04
- *
  */
 
 @SpiMeta(name = "guava")
 public class GuavaLocalSubPubProviderImpl extends AbstractLocalSubPubProvider {
-	private static final String GUAVA_EVENTBUSS_NAME = "coral-eventbus";
-	/**
-	 * 异步执行的事件总线
-	 */
-	private AsyncEventBus guavaEventbus = null;
+    private static final String GUAVA_EVENTBUSS_NAME = "coral-eventbus";
 
-	public GuavaLocalSubPubProviderImpl() {
-		super("guava");
-	}
+    /**
+     * 异步执行的事件总线
+     */
+    private AsyncEventBus guavaEventbus = null;
 
-	@Override
-	public String getName() {
-		return "guava";
-	}
+    public GuavaLocalSubPubProviderImpl() {
+        super("guava");
+    }
 
-	@Override
-	public void registerListener(Object obj) {
-		guavaEventbus.register(obj);
-	}
+    @Override
+    public String getName() {
+        return "guava";
+    }
 
-	@Override
-	protected boolean publishEventInternal(IApplicationEvent appEvent) {
-		guavaEventbus.post(appEvent);
-		return true;
-	}
+    @Override
+    public void registerListener(Object obj) {
+        guavaEventbus.register(obj);
+    }
 
-	@Override
-	protected void startInternal() {
-		// 本地事件发布异步处理
-		IThreadPoolProvider threadPoolProvider = ThreadPoolProviderFactory.getDefaultThreadPoolProvider();
-		ListeningExecutorService executorService = threadPoolProvider.getExecutorServiceDefault();
-		guavaEventbus = new AsyncEventBus(GUAVA_EVENTBUSS_NAME, executorService);
-	}
+    @Override
+    protected boolean publishEventInternal(IApplicationEvent appEvent) {
+        guavaEventbus.post(appEvent);
+        return true;
+    }
 
-	@Override
-	protected void stopInternal() {
-	}
+    @Override
+    protected void startInternal() {
+        // 本地事件发布异步处理
+        IThreadPoolProvider threadPoolProvider = ThreadPoolProviderFactory.getDefaultThreadPoolProvider();
+        ListeningExecutorService executorService = threadPoolProvider.getExecutorServiceDefault();
+        guavaEventbus = new AsyncEventBus(GUAVA_EVENTBUSS_NAME, executorService);
+    }
+
+    @Override
+    protected void stopInternal() {
+    }
 
 }

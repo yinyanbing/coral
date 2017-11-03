@@ -7,16 +7,15 @@ import redis.clients.jedis.Jedis;
  * 
  * @author: yybg
  * @date: 2017年10月10日 下午3:46:13
- *
  */
 public interface RedisInvokeHander<T> {
 
-	/**
-	 * 获取redis客户端不为空时操作
-	 * 
-	 * @param jedis
-	 * @return
-	 */
-	public T invokeWithJedis(Jedis jedis);
+    /**
+     * 获取redis客户端不为空时操作
+     * 
+     * @param jedis
+     * @return
+     */
+    public T invokeWithJedis(Jedis jedis);
 
 }

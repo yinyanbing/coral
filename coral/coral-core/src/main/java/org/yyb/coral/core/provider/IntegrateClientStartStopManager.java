@@ -16,116 +16,135 @@ import org.yyb.coral.core.IStartStop;
  * 
  * @author: yybg
  * @date: 2017年10月20日 上午10:42:48
- *
  */
 public class IntegrateClientStartStopManager {
 
-	private static final Logger logger = LoggerFactory.getLogger(IntegrateClientStartStopManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(IntegrateClientStartStopManager.class);
 
-	private static IntegrateClientStartStopManager INSTANCE = new IntegrateClientStartStopManager();
+    private static IntegrateClientStartStopManager INSTANCE = new IntegrateClientStartStopManager();
 
-	private List<IStartStop> businessInits = new CopyOnWriteArrayList<IStartStop>();
+    private List<IStartStop> businessInits = new CopyOnWriteArrayList<IStartStop>();
 
-	private IntegrateClientStartStopManager() {
-	}
+    private IntegrateClientStartStopManager() {
+    }
 
-	public static IntegrateClientStartStopManager instance() {
-		return INSTANCE;
-	}
+    public static IntegrateClientStartStopManager instance() {
+        return INSTANCE;
+    }
 
-	/**
-	 * 注册初始化顺序bean
-	 * 
-	 * @param orderInit
-	 */
-	public void registerBean(IStartStop orderInit) {
-		if (orderInit != null) {
-			businessInits.add(orderInit);
-		}
-	}
+    /**
+     * 注册初始化顺序bean
+     * 
+     * @param orderInit
+     */
+    public void registerBean(IStartStop orderInit) {
+        if (orderInit != null) {
+            businessInits.add(orderInit);
+        }
+    }
 
-	/**
-	 * 顺序执行bean的初始化方法，根据顺序,一般三方客户端集成不需要初始化，调用时及时初始化
-	 */
-	public void initRegisteredBeans() {
-		if (!CollectionUtils.isEmpty(businessInits)) {
-			Collections.sort(businessInits, new OrderedInitComparator());
+    /**
+     * 顺序执行bean的初始化方法，根据顺序,一般三方客户端集成不需要初始化，调用时及时初始化
+     */
+    public void initRegisteredBeans() {
+        if (!CollectionUtils.isEmpty(businessInits)) {
+            Collections.sort(businessInits, new OrderedInitComparator());
 
-			for (IStartStop orderedInit : businessInits) {
-				long l1 = System.currentTimeMillis();
-				logger.info(BaseUtils.getLogText(
-						"ThirdPartyClientStartStopManager init className=【%s】,name=【%s】,order=【%s】  is begin!**************************",
-						orderedInit.getClass().getName(), orderedInit.getName(), orderedInit.getOrder()));
-				try {
-					orderedInit.start();
-				} catch (Exception e) {
-					logger.error(BaseUtils.getLogText(
-							"ThirdPartyClientStartStopManager init is error! className=【%s】,name=【%s】,order=【%s】 ",
-							orderedInit.getClass().getName(), orderedInit.getName(), orderedInit.getOrder()), e);
-				}
-				long l2 = System.currentTimeMillis();
-				logger.info(BaseUtils.getLogText(
-						"ThirdPartyClientStartStopManager init className=【%s】,name=【%s】,order=【%s】   is over,cost=【%s】ms!**************************",
-						orderedInit.getClass().getName(), orderedInit.getName(), orderedInit.getOrder(), (l2 - l1)));
-			}
-		}
-	}
+            for (IStartStop orderedInit : businessInits) {
+                long l1 = System.currentTimeMillis();
+                logger.info(
+                        BaseUtils.getLogText(
+                                "ThirdPartyClientStartStopManager init className=【%s】,name=【%s】,order=【%s】  is begin!**************************",
+                                orderedInit.getClass().getName(),
+                                orderedInit.getName(),
+                                orderedInit.getOrder()));
+                try {
+                    orderedInit.start();
+                } catch (Exception e) {
+                    logger.error(
+                            BaseUtils.getLogText(
+                                    "ThirdPartyClientStartStopManager init is error! className=【%s】,name=【%s】,order=【%s】 ",
+                                    orderedInit.getClass().getName(),
+                                    orderedInit.getName(),
+                                    orderedInit.getOrder()),
+                            e);
+                }
+                long l2 = System.currentTimeMillis();
+                logger.info(
+                        BaseUtils.getLogText(
+                                "ThirdPartyClientStartStopManager init className=【%s】,name=【%s】,order=【%s】   is over,cost=【%s】ms!**************************",
+                                orderedInit.getClass().getName(),
+                                orderedInit.getName(),
+                                orderedInit.getOrder(),
+                                (l2 - l1)));
+            }
+        }
+    }
 
-	/**
-	 * 顺序执行bean的初始化方法，根据顺序.三方客户端集成初始化后需要关闭
-	 */
-	public void destroyRegisteredBeans() {
-		if (!CollectionUtils.isEmpty(businessInits)) {
-			Collections.sort(businessInits, new OrderedDestroyComparator());
+    /**
+     * 顺序执行bean的初始化方法，根据顺序.三方客户端集成初始化后需要关闭
+     */
+    public void destroyRegisteredBeans() {
+        if (!CollectionUtils.isEmpty(businessInits)) {
+            Collections.sort(businessInits, new OrderedDestroyComparator());
 
-			for (IStartStop orderedInit : businessInits) {
-				long l1 = System.currentTimeMillis();
-				logger.info(BaseUtils.getLogText(
-						"ThirdPartyClientStartStopManager destroy className=【%s】,name=【%s】,order=【%s】  is begin!**************************",
-						orderedInit.getClass().getName(), orderedInit.getName(), orderedInit.getOrder()));
-				try {
-					orderedInit.stop();
-				} catch (Exception e) {
-					logger.error(BaseUtils.getLogText(
-							"ThirdPartyClientStartStopManager destroy is error! className=【%s】,name=【%s】,order=【%s】 ",
-							orderedInit.getClass().getName(), orderedInit.getName(), orderedInit.getOrder()), e);
-				}
-				long l2 = System.currentTimeMillis();
-				logger.info(BaseUtils.getLogText(
-						"ThirdPartyClientStartStopManager destroy className=【%s】,name=【%s】,order=【%s】   is over,cost=【%s】ms!**************************",
-						orderedInit.getClass().getName(), orderedInit.getName(), orderedInit.getOrder(), (l2 - l1)));
-			}
-		}
-	}
+            for (IStartStop orderedInit : businessInits) {
+                long l1 = System.currentTimeMillis();
+                logger.info(
+                        BaseUtils.getLogText(
+                                "ThirdPartyClientStartStopManager destroy className=【%s】,name=【%s】,order=【%s】  is begin!**************************",
+                                orderedInit.getClass().getName(),
+                                orderedInit.getName(),
+                                orderedInit.getOrder()));
+                try {
+                    orderedInit.stop();
+                } catch (Exception e) {
+                    logger.error(
+                            BaseUtils.getLogText(
+                                    "ThirdPartyClientStartStopManager destroy is error! className=【%s】,name=【%s】,order=【%s】 ",
+                                    orderedInit.getClass().getName(),
+                                    orderedInit.getName(),
+                                    orderedInit.getOrder()),
+                            e);
+                }
+                long l2 = System.currentTimeMillis();
+                logger.info(
+                        BaseUtils.getLogText(
+                                "ThirdPartyClientStartStopManager destroy className=【%s】,name=【%s】,order=【%s】   is over,cost=【%s】ms!**************************",
+                                orderedInit.getClass().getName(),
+                                orderedInit.getName(),
+                                orderedInit.getOrder(),
+                                (l2 - l1)));
+            }
+        }
+    }
 
-	/**
-	 * 顺序排序比较
-	 * 
-	 * @author: yybg
-	 * @date: 2017年10月20日 上午10:40:54
-	 *
-	 */
-	private static class OrderedInitComparator implements Comparator<IStartStop> {
+    /**
+     * 顺序排序比较
+     * 
+     * @author: yybg
+     * @date: 2017年10月20日 上午10:40:54
+     */
+    private static class OrderedInitComparator implements Comparator<IStartStop> {
 
-		@Override
-		public int compare(IStartStop o1, IStartStop o2) {
-			return o1.getOrder() - o2.getOrder();
-		}
-	}
+        @Override
+        public int compare(IStartStop o1, IStartStop o2) {
+            return o1.getOrder() - o2.getOrder();
+        }
+    }
 
-	/**
-	 * 逆序排序比较
-	 * 
-	 * @author: yybg
-	 * @date: 2017年10月20日 上午10:41:09
-	 *
-	 */
-	private static class OrderedDestroyComparator implements Comparator<IStartStop> {
+    /**
+     * 逆序排序比较
+     * 
+     * @author: yybg
+     * @date: 2017年10月20日 上午10:41:09
+     */
+    private static class OrderedDestroyComparator implements Comparator<IStartStop> {
 
-		@Override
-		public int compare(IStartStop o1, IStartStop o2) {
-			return o2.getOrder() - o1.getOrder();
-		}
-	}
+        @Override
+        public int compare(IStartStop o1, IStartStop o2) {
+            return o2.getOrder() - o1.getOrder();
+        }
+    }
 
 }

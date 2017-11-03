@@ -17,39 +17,38 @@ import redis.clients.jedis.Jedis;
  * 
  * @author: yybg
  * @date: 2017年10月16日 下午4:50:31
- *
  */
 public class RedisSubscriberWorker extends AbstractSubscriberWorker {
-	private static final Logger logger = LoggerFactory.getLogger(RedisSubscriberWorker.class);
-	/**
-	 * redis订阅监听
-	 */
-	private EventMessageSubscriberListener eventMessageSubscriberListener = null;
+    private static final Logger logger = LoggerFactory.getLogger(RedisSubscriberWorker.class);
 
-	public RedisSubscriberWorker() {
-		super(Constants.CORAL_REDIS, true);
-		eventMessageSubscriberListener = new EventMessageSubscriberListener(ISubPubProvider.PUBSUB_CHANNEL_BYTE,
-				new IRedisMessageSubHander() {
+    /**
+     * redis订阅监听
+     */
+    private EventMessageSubscriberListener eventMessageSubscriberListener = null;
 
-					@Override
-					public void handerMessage(IApplicationEvent appEvent) {
-						onMessage(appEvent);
-					}
-				});
-	}
+    public RedisSubscriberWorker() {
+        super(Constants.CORAL_REDIS, true);
+        eventMessageSubscriberListener = new EventMessageSubscriberListener(ISubPubProvider.PUBSUB_CHANNEL_BYTE, new IRedisMessageSubHander() {
 
-	@Override
-	protected void runInternal() {
-		IJedisProvider jedisProvider = RedisProviderFactory.getDefaultJedisProvider();
-		if (jedisProvider != null) {
-			Jedis proxyJedis = jedisProvider.getJedisClientDefault();
-			if (proxyJedis != null) {
-				// 当前线程会等待
-				proxyJedis.subscribe(eventMessageSubscriberListener, ISubPubProvider.PUBSUB_CHANNEL_BYTE);
-			} else {
-				logger.warn(BaseUtils.getLogText("Eventbus subscribe get jedis is null,please init jedis!"));
-			}
-		}
-	}
+            @Override
+            public void handerMessage(IApplicationEvent appEvent) {
+                onMessage(appEvent);
+            }
+        });
+    }
+
+    @Override
+    protected void runInternal() {
+        IJedisProvider jedisProvider = RedisProviderFactory.getDefaultJedisProvider();
+        if (jedisProvider != null) {
+            Jedis proxyJedis = jedisProvider.getJedisClientDefault();
+            if (proxyJedis != null) {
+                // 当前线程会等待
+                proxyJedis.subscribe(eventMessageSubscriberListener, ISubPubProvider.PUBSUB_CHANNEL_BYTE);
+            } else {
+                logger.warn(BaseUtils.getLogText("Eventbus subscribe get jedis is null,please init jedis!"));
+            }
+        }
+    }
 
 }

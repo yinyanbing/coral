@@ -9,24 +9,21 @@ package org.yyb.coral.core.eventbus;
  */
 public class LocalApplicationEventImpl extends AbstractApplicationEvent {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6897338264420019504L;
+    private static final long serialVersionUID = -6897338264420019504L;
 
-	public LocalApplicationEventImpl(Object eventData) {
-		super(eventData);
-		setEventIdentification(AppIdentificationEventEnum.LOCAL.getId());
-	}
+    public LocalApplicationEventImpl(Object eventData) {
+        super(eventData);
+        setEventIdentification(AppIdentificationEventEnum.LOCAL.getId());
+    }
 
-	public LocalApplicationEventImpl(Object eventData, String eventType, String applicationId) {
-		super(eventData, eventType, applicationId);
-		setEventIdentification(AppIdentificationEventEnum.LOCAL.getId());
-	}
+    public LocalApplicationEventImpl(Object eventData, String eventType, String applicationId) {
+        super(eventData, eventType, applicationId);
+        setEventIdentification(AppIdentificationEventEnum.LOCAL.getId());
+    }
 
-	public LocalApplicationEventImpl(Object eventData, String eventType) {
-		super(eventData, eventType);
-		setEventIdentification(AppIdentificationEventEnum.LOCAL.getId());
-	}
+    public LocalApplicationEventImpl(Object eventData, String eventType) {
+        super(eventData, eventType);
+        setEventIdentification(AppIdentificationEventEnum.LOCAL.getId());
+    }
 
 }

@@ -5,11 +5,10 @@ package org.yyb.coral.core.redis.hander;
  * 
  * @author: yybg
  * @date: 2017年10月13日 下午3:20:18
- *
  */
 public interface IRedisLockHander {
-	/**
-	 * 获取redis锁 业务执行
-	 */
-	public void execute();
+    /**
+     * 获取redis锁 业务执行
+     */
+    public void execute();
 }

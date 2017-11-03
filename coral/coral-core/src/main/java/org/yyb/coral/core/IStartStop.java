@@ -8,7 +8,6 @@ import org.yyb.coral.common.extension.Spi;
  * 
  * @author: yybg
  * @date: 2017年10月24日 上午9:48:14
- *
  */
 @Spi(scope = Scope.SINGLETON)
 public interface IStartStop extends IStartStopInfo, IStartStopEvent, IOrdered {

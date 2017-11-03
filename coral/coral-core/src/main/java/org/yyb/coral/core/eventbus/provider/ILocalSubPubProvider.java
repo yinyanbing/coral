@@ -8,14 +8,13 @@ import org.yyb.coral.common.extension.Spi;
  * 
  * @author: yybg
  * @date: 2017年10月24日 上午9:58:48
- *
  */
 @Spi(scope = Scope.SINGLETON)
 public interface ILocalSubPubProvider extends ISubPubProvider {
-	/**
-	 * 注册监听
-	 * 
-	 * @param obj
-	 */
-	public void registerListener(Object obj);
+    /**
+     * 注册监听
+     * 
+     * @param obj
+     */
+    public void registerListener(Object obj);
 }

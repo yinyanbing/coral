@@ -13,19 +13,19 @@ import org.yyb.coral.core.eventbus.IApplicationEvent;
  */
 @Spi(scope = Scope.SINGLETON)
 public interface IEventPublishable {
-	/**
-	 * 事件发布，根据事件标识，remote OR local
-	 * 
-	 * @param event
-	 * @return
-	 */
-	boolean publish(IApplicationEvent event);
+    /**
+     * 事件发布，根据事件标识，remote OR local
+     * 
+     * @param event
+     * @return
+     */
+    boolean publish(IApplicationEvent event);
 
-	/**
-	 * 发布本地事件
-	 * 
-	 * @param event
-	 * @return
-	 */
-	boolean publishLocal(IApplicationEvent event);
+    /**
+     * 发布本地事件
+     * 
+     * @param event
+     * @return
+     */
+    boolean publishLocal(IApplicationEvent event);
 }

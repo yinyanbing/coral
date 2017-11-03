@@ -19,45 +19,45 @@ import org.yyb.coral.core.eventbus.provider.IRemoteSubPubProvider;
  * 
  * @author: yybg
  * @date: 2017年10月17日 下午3:23:32
- *
  */
 @SpiMeta(name = "integrate")
 @Activation(key = "integrate")
 public class IntegrateStartStopImpl implements IStartStop {
-	private static final Logger logger = LoggerFactory.getLogger(IntegrateStartStopImpl.class);
-	/**
-	 * 三方集成启动停止名
-	 */
-	private static final String INTEGRATE_NAME = "integrate";
+    private static final Logger logger = LoggerFactory.getLogger(IntegrateStartStopImpl.class);
 
-	@Override
-	public String getStartInfo() {
-		return INTEGRATE_NAME;
-	}
+    /**
+     * 三方集成启动停止名
+     */
+    private static final String INTEGRATE_NAME = "integrate";
 
-	@Override
-	public String getStopInfo() {
-		return INTEGRATE_NAME;
-	}
+    @Override
+    public String getStartInfo() {
+        return INTEGRATE_NAME;
+    }
 
-	@Override
-	public String getName() {
-		return INTEGRATE_NAME;
-	}
+    @Override
+    public String getStopInfo() {
+        return INTEGRATE_NAME;
+    }
 
-	@Override
-	public void start() {
-		IntegrateClientStartStopManager.instance().initRegisteredBeans();
-	}
+    @Override
+    public String getName() {
+        return INTEGRATE_NAME;
+    }
 
-	@Override
-	public void stop() {
-		IntegrateClientStartStopManager.instance().destroyRegisteredBeans();
-	}
+    @Override
+    public void start() {
+        IntegrateClientStartStopManager.instance().initRegisteredBeans();
+    }
 
-	@Override
-	public int getOrder() {
-		return CoralCoreConstans.ORDERED_INTEGRATE;
-	}
+    @Override
+    public void stop() {
+        IntegrateClientStartStopManager.instance().destroyRegisteredBeans();
+    }
+
+    @Override
+    public int getOrder() {
+        return CoralCoreConstans.ORDERED_INTEGRATE;
+    }
 
 }

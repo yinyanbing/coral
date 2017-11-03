@@ -8,7 +8,6 @@ import org.yyb.coral.common.extension.Spi;
  * 
  * @author: yybg
  * @date: 2017年10月16日 上午11:01:13
- *
  */
 @Spi(scope = Scope.SINGLETON)
 public interface IRemoteSubPubProvider extends ISubPubProvider {

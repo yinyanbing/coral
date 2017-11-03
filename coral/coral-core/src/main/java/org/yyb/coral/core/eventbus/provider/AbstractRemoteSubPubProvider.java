@@ -14,65 +14,64 @@ import org.yyb.coral.core.thread.CoralThreadFactory;
  * 
  * @author: yybg
  * @date: 2017年10月16日 下午4:18:20
- *
  */
 public abstract class AbstractRemoteSubPubProvider implements IRemoteSubPubProvider, ICoralName {
-	/**
-	 * 订阅发布的实现名称，如redis、RocketMQ等
-	 */
-	private String name = null;
+    /**
+     * 订阅发布的实现名称，如redis、RocketMQ等
+     */
+    private String name = null;
 
-	public AbstractRemoteSubPubProvider(String name) {
-		super();
-		this.name = name;
-	}
+    public AbstractRemoteSubPubProvider(String name) {
+        super();
+        this.name = name;
+    }
 
-	@Override
-	public String getName() {
-		return name;
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public void start() {
-		CoralThreadFactory coralThreadFactory = new CoralThreadFactory(name + "-remote subscribe");
-		ExecutorService singleThreadPool = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
-				new LinkedBlockingQueue<Runnable>(1), coralThreadFactory, new ThreadPoolExecutor.AbortPolicy());
-		singleThreadPool.submit(getSubscriberWorker());
-		startInternal();
-	}
+    @Override
+    public void start() {
+        CoralThreadFactory coralThreadFactory = new CoralThreadFactory(name + "-remote subscribe");
+        ExecutorService singleThreadPool = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(1),
+                coralThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+        singleThreadPool.submit(getSubscriberWorker());
+        startInternal();
+    }
 
-	@Override
-	public void stop() {
-		stopInternal();
-	}
+    @Override
+    public void stop() {
+        stopInternal();
+    }
 
-	@Override
-	public boolean publishEvent(IApplicationEvent appEvent) {
-		return publishEventInternal(appEvent);
-	}
+    @Override
+    public boolean publishEvent(IApplicationEvent appEvent) {
+        return publishEventInternal(appEvent);
+    }
 
-	/**
-	 * 订阅具体实现，可继承AbstarctSubscriberWorker
-	 * 
-	 * @return
-	 */
-	protected abstract Runnable getSubscriberWorker();
+    /**
+     * 订阅具体实现，可继承AbstarctSubscriberWorker
+     * 
+     * @return
+     */
+    protected abstract Runnable getSubscriberWorker();
 
-	/**
-	 * 子类发布事件实现
-	 * 
-	 * @param appEvent
-	 * @return
-	 */
-	protected abstract boolean publishEventInternal(IApplicationEvent appEvent);
+    /**
+     * 子类发布事件实现
+     * 
+     * @param appEvent
+     * @return
+     */
+    protected abstract boolean publishEventInternal(IApplicationEvent appEvent);
 
-	/**
-	 * 子类实现启动处理
-	 */
-	protected abstract void startInternal();
+    /**
+     * 子类实现启动处理
+     */
+    protected abstract void startInternal();
 
-	/**
-	 * 子类实现停止销毁处理
-	 */
-	protected abstract void stopInternal();
+    /**
+     * 子类实现停止销毁处理
+     */
+    protected abstract void stopInternal();
 }

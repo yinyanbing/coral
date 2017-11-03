@@ -10,24 +10,23 @@ import com.google.common.util.concurrent.ListeningExecutorService;
  * 
  * @author: yybg
  * @date: 2017年10月20日 下午4:05:15
- *
  */
 @Spi(scope = Scope.SINGLETON)
 public interface IThreadPoolProvider {
-	/**
-	 * 获取coral默认的线程池，一般使用此线程池，除非特别需要单独的线程池
-	 * 
-	 * @return
-	 */
-	public ListeningExecutorService getExecutorServiceDefault();
+    /**
+     * 获取coral默认的线程池，一般使用此线程池，除非特别需要单独的线程池
+     * 
+     * @return
+     */
+    public ListeningExecutorService getExecutorServiceDefault();
 
-	/**
-	 * 获取coral某个特定的配置组线程池，
-	 * 
-	 * @param configGroup
-	 *            线程池在配置文件中可配置多组，用于不同的业务场景使用
-	 * @return
-	 */
-	public ListeningExecutorService getExecutorService(String configGroup);
+    /**
+     * 获取coral某个特定的配置组线程池，
+     * 
+     * @param configGroup
+     *            线程池在配置文件中可配置多组，用于不同的业务场景使用
+     * @return
+     */
+    public ListeningExecutorService getExecutorService(String configGroup);
 
 }

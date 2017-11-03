@@ -21,73 +21,74 @@ import redis.clients.jedis.BinaryJedisPubSub;
  */
 public class EventMessageSubscriberListener extends BinaryJedisPubSub {
 
-	private static final Logger logger = LoggerFactory.getLogger(EventMessageSubscriberListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(EventMessageSubscriberListener.class);
 
-	/**
-	 * 默认事件的执行结果过期秒数，10分钟
-	 */
-	private static final int EVENT_EXPIRE_SECONDDS = 60 * 10;
-	/**
-	 * 订阅channel
-	 */
-	private byte[] subChannel = null;
-	private IRedisMessageSubHander messageSubHander = null;
+    /**
+     * 默认事件的执行结果过期秒数，10分钟
+     */
+    private static final int EVENT_EXPIRE_SECONDDS = 60 * 10;
 
-	// 配置文件中配置的监听处理的事件类型KEY，如果没有数据，则监听处理所有
-	// private static final String MATCH_EVENT_TYPE_KEY =
-	// "EventBusListenerEventTypes";
+    /**
+     * 订阅channel
+     */
+    private byte[] subChannel = null;
 
-	// private Set<String> mathEventSets = new HashSet<String>();
+    private IRedisMessageSubHander messageSubHander = null;
 
-	// private boolean needMathEventType = false;
+    // 配置文件中配置的监听处理的事件类型KEY，如果没有数据，则监听处理所有
+    // private static final String MATCH_EVENT_TYPE_KEY =
+    // "EventBusListenerEventTypes";
 
-	public EventMessageSubscriberListener(byte[] channel, IRedisMessageSubHander messageSubHander) {
-		this.subChannel = channel;
-		this.messageSubHander = messageSubHander;
-		if (subChannel == null) {
-			subChannel = ISubPubProvider.PUBSUB_CHANNEL_BYTE;
-		}
-	}
+    // private Set<String> mathEventSets = new HashSet<String>();
 
-	@Override
-	public void onMessage(byte[] channel, byte[] message) {
-		// 接受消息，并处理
-		if (Arrays.equals(subChannel, channel)) {
-			try {
-				Object messageObj = DataSerializeUtils.deserializedValue(message);
-				if (messageObj != null && messageObj instanceof IApplicationEvent) {
-					IApplicationEvent applicationEvent = (IApplicationEvent) messageObj;
-					messageSubHander.handerMessage(applicationEvent);
-				}
-			} catch (Exception e) {
-				logger.error(BaseUtils.getLogText("Eventbus subscribe redis topic 【%s】 deal error!",
-						Constants.CORAL_EVENTBUS_CHANNEL), e);
-			}
-		}
-	}
+    // private boolean needMathEventType = false;
 
-	@Override
-	public void onPMessage(byte[] pattern, byte[] channel, byte[] message) {
-		// super.onPMessage(pattern, channel, message);
-	}
+    public EventMessageSubscriberListener(byte[] channel, IRedisMessageSubHander messageSubHander) {
+        this.subChannel = channel;
+        this.messageSubHander = messageSubHander;
+        if (subChannel == null) {
+            subChannel = ISubPubProvider.PUBSUB_CHANNEL_BYTE;
+        }
+    }
 
-	@Override
-	public void onSubscribe(byte[] channel, int subscribedChannels) {
-		// super.onSubscribe(channel, subscribedChannels);
-	}
+    @Override
+    public void onMessage(byte[] channel, byte[] message) {
+        // 接受消息，并处理
+        if (Arrays.equals(subChannel, channel)) {
+            try {
+                Object messageObj = DataSerializeUtils.deserializedValue(message);
+                if (messageObj != null && messageObj instanceof IApplicationEvent) {
+                    IApplicationEvent applicationEvent = (IApplicationEvent) messageObj;
+                    messageSubHander.handerMessage(applicationEvent);
+                }
+            } catch (Exception e) {
+                logger.error(BaseUtils.getLogText("Eventbus subscribe redis topic 【%s】 deal error!", Constants.CORAL_EVENTBUS_CHANNEL), e);
+            }
+        }
+    }
 
-	@Override
-	public void onUnsubscribe(byte[] channel, int subscribedChannels) {
-		// super.onUnsubscribe(channel, subscribedChannels);
-	}
+    @Override
+    public void onPMessage(byte[] pattern, byte[] channel, byte[] message) {
+        // super.onPMessage(pattern, channel, message);
+    }
 
-	@Override
-	public void onPUnsubscribe(byte[] pattern, int subscribedChannels) {
-		// super.onPUnsubscribe(pattern, subscribedChannels);
-	}
+    @Override
+    public void onSubscribe(byte[] channel, int subscribedChannels) {
+        // super.onSubscribe(channel, subscribedChannels);
+    }
 
-	@Override
-	public void onPSubscribe(byte[] pattern, int subscribedChannels) {
-		// super.onPSubscribe(pattern, subscribedChannels);
-	}
+    @Override
+    public void onUnsubscribe(byte[] channel, int subscribedChannels) {
+        // super.onUnsubscribe(channel, subscribedChannels);
+    }
+
+    @Override
+    public void onPUnsubscribe(byte[] pattern, int subscribedChannels) {
+        // super.onPUnsubscribe(pattern, subscribedChannels);
+    }
+
+    @Override
+    public void onPSubscribe(byte[] pattern, int subscribedChannels) {
+        // super.onPSubscribe(pattern, subscribedChannels);
+    }
 }

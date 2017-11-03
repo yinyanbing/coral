@@ -9,24 +9,21 @@ package org.yyb.coral.core.eventbus;
  */
 public class RemoteApplicationEventImpl extends AbstractApplicationEvent {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 582775961374512116L;
+    private static final long serialVersionUID = 582775961374512116L;
 
-	public RemoteApplicationEventImpl(Object eventData) {
-		super(eventData);
-		setEventIdentification(AppIdentificationEventEnum.REMOTE.getId());
-	}
+    public RemoteApplicationEventImpl(Object eventData) {
+        super(eventData);
+        setEventIdentification(AppIdentificationEventEnum.REMOTE.getId());
+    }
 
-	public RemoteApplicationEventImpl(Object eventData, String eventType, String applicationId) {
-		super(eventData, eventType, applicationId);
-		setEventIdentification(AppIdentificationEventEnum.REMOTE.getId());
-	}
+    public RemoteApplicationEventImpl(Object eventData, String eventType, String applicationId) {
+        super(eventData, eventType, applicationId);
+        setEventIdentification(AppIdentificationEventEnum.REMOTE.getId());
+    }
 
-	public RemoteApplicationEventImpl(Object eventData, String eventType) {
-		super(eventData, eventType);
-		setEventIdentification(AppIdentificationEventEnum.REMOTE.getId());
-	}
+    public RemoteApplicationEventImpl(Object eventData, String eventType) {
+        super(eventData, eventType);
+        setEventIdentification(AppIdentificationEventEnum.REMOTE.getId());
+    }
 
 }

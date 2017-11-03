@@ -17,9 +17,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface ConfigDesc {
 
-	String key() default "";
+    String key() default "";
 
-	boolean excluded() default false;
+    boolean excluded() default false;
 
-	boolean required() default false;
+    boolean required() default false;
 }

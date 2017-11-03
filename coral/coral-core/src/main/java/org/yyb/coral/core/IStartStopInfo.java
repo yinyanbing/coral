@@ -7,17 +7,17 @@ package org.yyb.coral.core;
  * @date: 2017年9月26日 下午4:39:53
  */
 public interface IStartStopInfo extends ICoralName {
-	/**
-	 * 获取启动相关详细信息
-	 * 
-	 * @return
-	 */
-	public String getStartInfo();
+    /**
+     * 获取启动相关详细信息
+     * 
+     * @return
+     */
+    public String getStartInfo();
 
-	/**
-	 * 获取停止相关详细信息
-	 * 
-	 * @return
-	 */
-	public String getStopInfo();
+    /**
+     * 获取停止相关详细信息
+     * 
+     * @return
+     */
+    public String getStopInfo();
 }

@@ -20,45 +20,44 @@ import redis.clients.jedis.Jedis;
  * 
  * @author: yybg
  * @date: 2017年10月24日 上午10:01:40
- *
  */
 @SpiMeta(name = "redis")
 public class RedisRemoteSubPubProviderImpl extends AbstractRemoteSubPubProvider {
-	private static final Logger logger = LoggerFactory.getLogger(RedisRemoteSubPubProviderImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(RedisRemoteSubPubProviderImpl.class);
 
-	public RedisRemoteSubPubProviderImpl() {
-		super(Constants.CORAL_REDIS);
-	}
+    public RedisRemoteSubPubProviderImpl() {
+        super(Constants.CORAL_REDIS);
+    }
 
-	@Override
-	protected Runnable getSubscriberWorker() {
-		RedisSubscriberWorker redisSubscriberWorker = new RedisSubscriberWorker();
-		return redisSubscriberWorker;
-	}
+    @Override
+    protected Runnable getSubscriberWorker() {
+        RedisSubscriberWorker redisSubscriberWorker = new RedisSubscriberWorker();
+        return redisSubscriberWorker;
+    }
 
-	@Override
-	protected boolean publishEventInternal(IApplicationEvent appEvent) {
-		RedisInvokeResult<Void> invokeResult = RedisUtis.runWithJedis(new RedisInvokeVoidHander<Void>() {
+    @Override
+    protected boolean publishEventInternal(IApplicationEvent appEvent) {
+        RedisInvokeResult<Void> invokeResult = RedisUtis.runWithJedis(new RedisInvokeVoidHander<Void>() {
 
-			@Override
-			public void invokeWithJedis(Jedis jedis) {
-				byte[] publishValue = DataSerializeUtils.serializeValue(appEvent);
-				jedis.publish(ISubPubProvider.PUBSUB_CHANNEL_BYTE, publishValue);
-			}
-		});
-		if (invokeResult.isSuccess()) {
-			return true;
-		}
-		logger.warn(BaseUtils.getLogText("Eventbus to redis is not success!result=%s", invokeResult.getResultCode()));
-		return false;
-	}
+            @Override
+            public void invokeWithJedis(Jedis jedis) {
+                byte[] publishValue = DataSerializeUtils.serializeValue(appEvent);
+                jedis.publish(ISubPubProvider.PUBSUB_CHANNEL_BYTE, publishValue);
+            }
+        });
+        if (invokeResult.isSuccess()) {
+            return true;
+        }
+        logger.warn(BaseUtils.getLogText("Eventbus to redis is not success!result=%s", invokeResult.getResultCode()));
+        return false;
+    }
 
-	@Override
-	protected void startInternal() {
-	}
+    @Override
+    protected void startInternal() {
+    }
 
-	@Override
-	protected void stopInternal() {
-	}
+    @Override
+    protected void stopInternal() {
+    }
 
 }

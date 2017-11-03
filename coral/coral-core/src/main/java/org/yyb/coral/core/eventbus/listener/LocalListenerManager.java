@@ -11,26 +11,24 @@ import org.yyb.coral.core.eventbus.provider.ILocalSubPubProvider;
  * 
  * @author: yybg
  * @date: 2017年10月24日 上午9:58:03
- *
  */
 public class LocalListenerManager {
-	public static void regesterEventListener(IEventListener eventListener) {
-		if (eventListener != null) {
-			CompomentInfo compomentInfo = CoralApplication
-					.getCompomentInfo(CoralCompomentsEnum.EVENTBUS_LOCAL.getName());
-			if (compomentInfo != null) {
-				ILocalSubPubProvider localSubPubProvider = ExtensionLoader
-						.getExtensionLoader(ILocalSubPubProvider.class).getExtension(compomentInfo.getProviderName());
-				if (localSubPubProvider != null) {
-					localSubPubProvider.registerListener(eventListener);
-				}
-			} else {
-				// logger.warn(BaseUtils.getLogText("Eventbus can not find
-				// ILocalSubPubProvider!"));
-			}
-		}
-	}
+    public static void regesterEventListener(IEventListener eventListener) {
+        if (eventListener != null) {
+            CompomentInfo compomentInfo = CoralApplication.getCompomentInfo(CoralCompomentsEnum.EVENTBUS_LOCAL.getName());
+            if (compomentInfo != null) {
+                ILocalSubPubProvider localSubPubProvider = ExtensionLoader.getExtensionLoader(ILocalSubPubProvider.class)
+                        .getExtension(compomentInfo.getProviderName());
+                if (localSubPubProvider != null) {
+                    localSubPubProvider.registerListener(eventListener);
+                }
+            } else {
+                // logger.warn(BaseUtils.getLogText("Eventbus can not find
+                // ILocalSubPubProvider!"));
+            }
+        }
+    }
 
-	private LocalListenerManager() {
-	}
+    private LocalListenerManager() {
+    }
 }

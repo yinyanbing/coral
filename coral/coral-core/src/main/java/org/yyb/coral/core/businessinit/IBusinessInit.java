@@ -9,7 +9,6 @@ import org.yyb.coral.core.IStartStopInfo;
  * 
  * @author: yybg
  * @date: 2017年10月19日 上午9:37:29
- *
  */
 public interface IBusinessInit extends IStartStopInfo, IStartStopEvent, IOrdered {
 

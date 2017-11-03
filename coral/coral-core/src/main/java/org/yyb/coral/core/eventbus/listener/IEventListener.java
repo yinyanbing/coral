@@ -9,14 +9,13 @@ import com.google.common.eventbus.Subscribe;
  * 
  * @author: yybg
  * @date: 2017年10月24日 上午9:56:56
- *
  */
 public interface IEventListener<E extends IApplicationEvent> {
-	/**
-	 * 事件订阅触发
-	 * 
-	 * @param event
-	 */
-	@Subscribe
-	public void onAppEvent(E event);
+    /**
+     * 事件订阅触发
+     * 
+     * @param event
+     */
+    @Subscribe
+    public void onAppEvent(E event);
 }

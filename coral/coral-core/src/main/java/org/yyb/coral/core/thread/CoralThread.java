@@ -7,78 +7,79 @@ import java.util.Date;
  * 
  * @author: yybg
  * @date: 2017年10月23日 下午4:20:34
- *
  */
 public class CoralThread extends Thread {
-	/**
-	 * 创建时间
-	 */
-	private Date createDate;
-	/**
-	 * 运行开始时间
-	 */
-	private Date startDate;
-	/**
-	 * 完成时间
-	 */
-	private Date finishDate;
+    /**
+     * 创建时间
+     */
+    private Date createDate;
 
-	public CoralThread(Runnable target, String name) {
-		super(target, name);
-		setCreateDate();
-	}
+    /**
+     * 运行开始时间
+     */
+    private Date startDate;
 
-	/**
-	 * 设置
-	 */
-	public void setCreateDate() {
-		this.createDate = new Date();
-	}
+    /**
+     * 完成时间
+     */
+    private Date finishDate;
 
-	/**
-	 * 设置线程开始运行时间
-	 */
-	public void setStartDate() {
-		this.startDate = new Date();
-	}
+    public CoralThread(Runnable target, String name) {
+        super(target, name);
+        setCreateDate();
+    }
 
-	/**
-	 * 设置完成时间
-	 */
-	public void setFinishDate() {
-		this.finishDate = new Date();
-	}
+    /**
+     * 设置
+     */
+    public void setCreateDate() {
+        this.createDate = new Date();
+    }
 
-	/**
-	 * 获取执行时间
-	 * 
-	 * @return
-	 */
-	public long getExecutionTime() {
-		return finishDate.getTime() - startDate.getTime();
-	}
+    /**
+     * 设置线程开始运行时间
+     */
+    public void setStartDate() {
+        this.startDate = new Date();
+    }
 
-	@Override
-	public void run() {
-		setStartDate();
-		try {
-			super.run();
-		} finally {
-			setFinishDate();
-			// 主动报告？TODO
-		}
-	}
+    /**
+     * 设置完成时间
+     */
+    public void setFinishDate() {
+        this.finishDate = new Date();
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder buffer = new StringBuilder();
-		buffer.append(getName());
-		buffer.append(": ");
-		// buffer.append(" Create Date: ");
-		buffer.append(createDate);
-		buffer.append(" : Running time: ");
-		buffer.append(getExecutionTime());
-		buffer.append(" Milliseconds.");
-		return buffer.toString();
-	}
+    /**
+     * 获取执行时间
+     * 
+     * @return
+     */
+    public long getExecutionTime() {
+        return finishDate.getTime() - startDate.getTime();
+    }
+
+    @Override
+    public void run() {
+        setStartDate();
+        try {
+            super.run();
+        } finally {
+            setFinishDate();
+            // 主动报告？TODO
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder buffer = new StringBuilder();
+        buffer.append(getName());
+        buffer.append(": ");
+        // buffer.append(" Create Date: ");
+        buffer.append(createDate);
+        buffer.append(" : Running time: ");
+        buffer.append(getExecutionTime());
+        buffer.append(" Milliseconds.");
+        return buffer.toString();
+    }
 }

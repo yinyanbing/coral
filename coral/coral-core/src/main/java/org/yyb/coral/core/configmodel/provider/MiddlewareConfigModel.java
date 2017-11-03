@@ -10,150 +10,158 @@ import org.yyb.coral.core.configmodel.AbstractConfigModel;
  */
 public class MiddlewareConfigModel extends AbstractConfigModel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4971403255834696835L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -4971403255834696835L;
 
-	// 中间件基础信息
-	/**
-	 * 地址IP
-	 */
-	protected String host;
-	/**
-	 * 端口
-	 */
-	protected int port;
-	/**
-	 * 用户名
-	 */
-	protected String userName;
-	/**
-	 * 密码
-	 */
-	protected String passWord;
-	/**
-	 * 获取资源超时时间
-	 */
-	protected int timeOut;
+    // 中间件基础信息
+    /**
+     * 地址IP
+     */
+    protected String host;
 
-	// 一般中间件客户端是池化的
+    /**
+     * 端口
+     */
+    protected int port;
 
-	/**
-	 * // 最大资源数
-	 */
-	protected int maxTotal;
-	/**
-	 * 最大空闲资源数
-	 */
-	protected int maxIdle;
-	/**
-	 * 最小空闲资源数
-	 */
-	protected int minIdle;
-	/**
-	 * 最大等待时间，毫秒
-	 */
-	protected int maxWaitMillis;
-	/**
-	 * 获取资源时是否测试
-	 */
-	protected boolean testOnBorrow;
+    /**
+     * 用户名
+     */
+    protected String userName;
 
-	/**
-	 * <pre>
-	 * 集群的配置，需要具体客户端实例化时判断分析
-	 * 集群节点配置字符串，一般为ip:port,ip:port
-	 * </pre>
-	 */
-	protected String clusterNodes;
+    /**
+     * 密码
+     */
+    protected String passWord;
 
-	public String getHost() {
-		return host;
-	}
+    /**
+     * 获取资源超时时间
+     */
+    protected int timeOut;
 
-	public void setHost(String host) {
-		this.host = host;
-	}
+    // 一般中间件客户端是池化的
 
-	public int getPort() {
-		return port;
-	}
+    /**
+     * // 最大资源数
+     */
+    protected int maxTotal;
 
-	public void setPort(int port) {
-		this.port = port;
-	}
+    /**
+     * 最大空闲资源数
+     */
+    protected int maxIdle;
 
-	public String getUserName() {
-		return userName;
-	}
+    /**
+     * 最小空闲资源数
+     */
+    protected int minIdle;
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    /**
+     * 最大等待时间，毫秒
+     */
+    protected int maxWaitMillis;
 
-	public String getPassWord() {
-		return passWord;
-	}
+    /**
+     * 获取资源时是否测试
+     */
+    protected boolean testOnBorrow;
 
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
-	}
+    /**
+     * <pre>
+     * 集群的配置，需要具体客户端实例化时判断分析
+     * 集群节点配置字符串，一般为ip:port,ip:port
+     * </pre>
+     */
+    protected String clusterNodes;
 
-	public int getMaxTotal() {
-		return maxTotal;
-	}
+    public String getHost() {
+        return host;
+    }
 
-	public void setMaxTotal(int maxTotal) {
-		this.maxTotal = maxTotal;
-	}
+    public void setHost(String host) {
+        this.host = host;
+    }
 
-	public int getMaxIdle() {
-		return maxIdle;
-	}
+    public int getPort() {
+        return port;
+    }
 
-	public void setMaxIdle(int maxIdle) {
-		this.maxIdle = maxIdle;
-	}
+    public void setPort(int port) {
+        this.port = port;
+    }
 
-	public int getMinIdle() {
-		return minIdle;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public void setMinIdle(int minIdle) {
-		this.minIdle = minIdle;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public int getMaxWaitMillis() {
-		return maxWaitMillis;
-	}
+    public String getPassWord() {
+        return passWord;
+    }
 
-	public void setMaxWaitMillis(int maxWaitMillis) {
-		this.maxWaitMillis = maxWaitMillis;
-	}
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
 
-	public boolean isTestOnBorrow() {
-		return testOnBorrow;
-	}
+    public int getMaxTotal() {
+        return maxTotal;
+    }
 
-	public void setTestOnBorrow(boolean testOnBorrow) {
-		this.testOnBorrow = testOnBorrow;
-	}
+    public void setMaxTotal(int maxTotal) {
+        this.maxTotal = maxTotal;
+    }
 
-	public String getClusterNodes() {
-		return clusterNodes;
-	}
+    public int getMaxIdle() {
+        return maxIdle;
+    }
 
-	public void setClusterNodes(String clusterNodes) {
-		this.clusterNodes = clusterNodes;
-	}
+    public void setMaxIdle(int maxIdle) {
+        this.maxIdle = maxIdle;
+    }
 
-	public int getTimeOut() {
-		return timeOut;
-	}
+    public int getMinIdle() {
+        return minIdle;
+    }
 
-	public void setTimeOut(int timeOut) {
-		this.timeOut = timeOut;
-	}
+    public void setMinIdle(int minIdle) {
+        this.minIdle = minIdle;
+    }
+
+    public int getMaxWaitMillis() {
+        return maxWaitMillis;
+    }
+
+    public void setMaxWaitMillis(int maxWaitMillis) {
+        this.maxWaitMillis = maxWaitMillis;
+    }
+
+    public boolean isTestOnBorrow() {
+        return testOnBorrow;
+    }
+
+    public void setTestOnBorrow(boolean testOnBorrow) {
+        this.testOnBorrow = testOnBorrow;
+    }
+
+    public String getClusterNodes() {
+        return clusterNodes;
+    }
+
+    public void setClusterNodes(String clusterNodes) {
+        this.clusterNodes = clusterNodes;
+    }
+
+    public int getTimeOut() {
+        return timeOut;
+    }
+
+    public void setTimeOut(int timeOut) {
+        this.timeOut = timeOut;
+    }
 
 }
