@@ -37,6 +37,7 @@
 			<artifactId>redisson</artifactId>
 			<version>3.5.4</version>
 		</dependency>
+
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
@@ -44,5 +45,10 @@
 		</dependency>
 		<!-- <dependency> <groupId>com.alibaba.rocketmq</groupId> <artifactId>rocketmq-broker</artifactId> 
 			<version>3.2.6</version> </dependency> -->
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.54</version>
+		</dependency>
 	</dependencies>
 </project>
