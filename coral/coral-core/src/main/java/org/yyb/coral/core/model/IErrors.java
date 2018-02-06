@@ -8,7 +8,11 @@ package org.yyb.coral.core.model;
  * @date: 2016年10月9日 上午10:26:03
  */
 public interface IErrors {
-
+    /**
+     * 获取异常编码
+     * 
+     * @return
+     */
     public String getCode();
 
     public String getMessage();
