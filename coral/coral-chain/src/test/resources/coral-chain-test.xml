@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd   
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<bean id="startBeanListener" class="org.yyb.coral.chain.StartProcessListener" />
+
+
+	<!-- 链式调用入口 -->
+	<bean id="testProcessorManager" class="org.yyb.coral.chain.chains.ChainProxyMessageProcessor">
+		<constructor-arg name="managerName" value="testProcessorChain" />
+		<constructor-arg name="forwardName" value="testProcessor01" />
+	</bean>
+
+	<!-- 具体某条链式处理模版,可以存在多条 -->
+	<bean id="testProcessorChain" class="org.yyb.coral.chain.chains.DefaultChainMessageProcessor">
+		<constructor-arg name="defaultName" value="testProcessor01" />
+		<constructor-arg name="processors">
+			<map>
+				<entry key="testProcessor01">
+					<bean class=" org.yyb.coral.chain.t1.Test01Processor">
+						<constructor-arg name="conParam" value="conParamPro01" />
+						<property name="fieParam" value="fieParamPro01" />
+						<property name="forwardName" value="testProcessor02" />
+					</bean>
+				</entry>
+				<entry key="testProcessor02">
+					<bean class="org.yyb.coral.chain.t1.Test02Processor">
+						<constructor-arg name="conParam" value="conParamPro02" />
+						<property name="fieParam" value="fieParamPro02" />
+						<property name="forwardName" value="testProcessor03" />
+					</bean>
+				</entry>
+				<entry key="testProcessor03">
+					<bean class="org.yyb.coral.chain.t1.Test03Processor">
+						<constructor-arg name="conParam" value="conParamPro01" />
+						<property name="fieParam" value="fieParamPro02" />
+					</bean>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+</beans>
