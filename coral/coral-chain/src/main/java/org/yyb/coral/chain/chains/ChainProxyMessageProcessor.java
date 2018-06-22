@@ -16,7 +16,7 @@ import org.yyb.coral.chain.MessageContext;
  */
 public class ChainProxyMessageProcessor implements IEventProcessor, BeanFactoryAware {
 
-    // 流程主链，管理链名
+    // 流程主链，管理链名,要代理调用的处理链名，一般为bean名
     private String managerName;
 
     // chainProcessor中主流程链的首处理器节点名
